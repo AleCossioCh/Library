@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_book.view.*
 
 class BookListAdapter(var list : ArrayList<Book>, applicationContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,6 +21,9 @@ class BookListAdapter(var list : ArrayList<Book>, applicationContext: Context) :
         val book = list[position]
         holder.itemView.textViewTitle.text = book.title
         holder.itemView.textViewDescription.text = book.description
+        val picasso = Picasso.get()
+        picasso.load(book.photoUrl).into(holder.itemView.my_image_view)
+
     }
 
     override fun getItemCount(): Int {
