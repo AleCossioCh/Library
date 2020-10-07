@@ -44,18 +44,6 @@ class MainActivity : AppCompatActivity() {
         addBook.setOnClickListener {
             val intent = Intent(this, CreateBookActivity::class.java)
             startActivity(intent);
-            var title = intent.getStringExtra("title").toString()
-            var pages = intent.getStringExtra("pages").toString()
-            var editorial = intent.getStringExtra("editorial").toString()
-            var author = intent.getStringExtra("author").toString()
-            var description = intent.getStringExtra("description").toString()
-            var photoUrl = intent.getStringExtra("photoUrl").toString()
-            Log.d("DBTEST", title )
         }
-        /**
-        suspend fun insert(title :String, pages:String, editorial:String,author:String,description:String,photoUrl:String){
-            repository.insert(Book(title, pages, editorial,author,description,photoUrl))
-        }
-        **/
     }
 }

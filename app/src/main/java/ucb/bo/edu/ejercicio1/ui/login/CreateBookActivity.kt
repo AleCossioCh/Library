@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import kotlinx.coroutines.GlobalScope
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_book.*
+import kotlinx.coroutines.async
 import ucb.bo.edu.ejercicio1.*
 
 class CreateBookActivity : AppCompatActivity() {
@@ -14,6 +16,8 @@ class CreateBookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_book)
+        val bookDao = AppRoomDatabase.getDatabase(applicationContext).bookDato()
+        val repository = BookRepository(bookDao)
 
         val save = findViewById<Button>(R.id.btn_save)
         save.setOnClickListener {
@@ -24,12 +28,9 @@ class CreateBookActivity : AppCompatActivity() {
             val description = editTextDescription.text.toString()
             val photoUrl = editTextPhotoUrl.text.toString()
             val intent:Intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("title", title)
-            intent.putExtra("pages", pages)
-            intent.putExtra("editorial", editorial)
-            intent.putExtra("author", author)
-            intent.putExtra("description", description)
-            intent.putExtra("photoUrl", photoUrl)
+            GlobalScope.async {
+                repository.insert(Book(title, pages, editorial,author,description,photoUrl))
+            }
             startActivity(intent)
         }
     }
