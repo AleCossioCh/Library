@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_book">Agregar</string>
+    <string name="title_activity_create_book">CreateBookActivity</string>
+    <string name="editorial">editorial</string>
+    <string name="title">titulo</string>
+    <string name="pages">paginas</string>
+    <string name="author">autor</string>
+    <string name="btn_save">guardar</string>
+    <string name="description">descripcion</string>
+    <string name="photoUrl">Url de la foto</string>
+</resources>

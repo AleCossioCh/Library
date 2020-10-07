@@ -1,24 +1,27 @@
 package ucb.bo.edu.ejercicio1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import ucb.bo.edu.ejercicio1.ui.login.CreateBookActivity
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        val bookDao = AppRoomDatabase.getDatabase(applicationContext).bookDato()
+        val repository = BookRepository(bookDao)
 
         GlobalScope.launch {
-            val bookDao = AppRoomDatabase.getDatabase(applicationContext).bookDato()
-            val repository = BookRepository(bookDao)
 
 
             //repository.insert(Book("Crimen y castigo", "2000", "editorial1","Fiódor Dostoievski","El análisis psicológico que realiza del protagonista, el estudiante Rodión Raskólnikov, que se enfrenta a un dilema moral.", "https://images.cdn3.buscalibre.com/fit-in/360x360/57/f4/57f45dd845bc86570769166c970d9047.jpg"))
@@ -28,15 +31,31 @@ class MainActivity : AppCompatActivity() {
             //repository.insert(Book("El Principito", "2059", "editorial5","Antoine de Saint-Exupéry","Todo un clásico. El escritor y aviador francés escribió este libro infantil, publicado en 1943, que a día de hoy sigue siendo uno de los libros más vendidos de todos los tiempos.", "https://d26lpennugtm8s.cloudfront.net/stores/001/029/689/products/78321423_2667428979981701_1469574183322124288_o1-0278b16767d76dca9615744382996329-640-0.jpg"))
 
             val lista = repository.getListBooks()
-            lista.forEach {
-                Log.d("DBTEST","Id book = ${it.id}, Title:${it.title}, Pages:${it.pages},Editorial:${it.editorial},author:${it.author},description:${it.description},photoUrl:${it.photoUrl}")
-            }
-
+            //lista.forEach {
+            //    Log.d("DBTEST","Id book = ${it.id}, Title:${it.title}, Pages:${it.pages},Editorial:${it.editorial},author:${it.author},description:${it.description},photoUrl:${it.photoUrl}")
+            //}
             recycleViewBooks.adapter= BookListAdapter(ArrayList(lista) , applicationContext)
             val linearLayoutManager = LinearLayoutManager(applicationContext)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
             recycleViewBooks.layoutManager = linearLayoutManager
-
         }
+
+
+        addBook.setOnClickListener {
+            val intent = Intent(this, CreateBookActivity::class.java)
+            startActivity(intent);
+            var title = intent.getStringExtra("title").toString()
+            var pages = intent.getStringExtra("pages").toString()
+            var editorial = intent.getStringExtra("editorial").toString()
+            var author = intent.getStringExtra("author").toString()
+            var description = intent.getStringExtra("description").toString()
+            var photoUrl = intent.getStringExtra("photoUrl").toString()
+            Log.d("DBTEST", title )
+        }
+        /**
+        suspend fun insert(title :String, pages:String, editorial:String,author:String,description:String,photoUrl:String){
+            repository.insert(Book(title, pages, editorial,author,description,photoUrl))
+        }
+        **/
     }
 }
