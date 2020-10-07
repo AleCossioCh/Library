@@ -3,10 +3,10 @@
     <string name="add_book">Ajouter</string>
     <string name="title_activity_create_book">CreateBookActivity</string>
     <string name="editorial">éditorial</string>
-    <string name="title">titre</string>
-    <string name="pages">pages</string>
-    <string name="author">auteur</string>
-    <string name="btn_save">save</string>
-    <string name="description">description</string>
-    <string name="photoUrl">url photo</string>
+    <string name="title">Titre</string>
+    <string name="pages">Pages</string>
+    <string name="author">Auteur</string>
+    <string name="btn_save">Save</string>
+    <string name="description">Description</string>
+    <string name="photoUrl">Url photo</string>
 </resources>
